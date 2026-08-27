@@ -107,7 +107,7 @@ console.log("Preços acima de 100:", precosAltos);
 
 // --- EXERCÍCIO 3.2 ---
 // Use map para aplicar 10% de desconto em todos os preços (multiplicar por 0.9).
-const precosComDesconto = precos.map((valor) => valor * 0.1);
+const precosComDesconto = precos.map((valor) => valor * 0.9);
 
 console.log(`\n--- BLOCO 3 - EX 2 ---`);
 console.log("Preços com 10% de desconto:", precosComDesconto);
