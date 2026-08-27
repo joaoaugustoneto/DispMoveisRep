@@ -142,4 +142,71 @@ BLOCO 4 - APLICAÇÃO PRÁTICA
 ================================================================================================
 */
 
-//1-  
+//1- 
+
+const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+async function executarLoopComDelay() {
+  for (let i = 1; i <= 3; i++) {
+    await delay(500);
+    console.log(`Iteração ${i} concluída. Flamengo é o melhor!`);
+  }
+}
+
+executarLoopComDelay();
+
+// 2-
+async function operacaoInstavel() {
+  return new Promise((resolve, reject) => {
+    const falhou = Math.random() < 0.5;
+    if (falhou) {
+      reject("Falha na conexão com o servidor. Flamengo é o melhor!");
+    } else {
+      resolve("Dados carregados com sucesso! Flamengo é o melhor!");
+    }
+  });
+}
+
+async function executarOperacaoInstavel() {
+  try {
+    const resultado = await operacaoInstavel();
+    console.log(resultado);
+  } catch (erro) {
+    console.log("Aviso amigável:", erro);
+  }
+}
+
+executarOperacaoInstavel();
+
+// 3-
+async function validarCarrinho(carrinho) {
+  await delay(300);
+  if (!carrinho || carrinho.length === 0) {
+    throw new Error("O carrinho está vazio. Flamengo é o melhor!");
+  }
+  return true;
+}
+
+async function calcularTotal(carrinho) {
+  await delay(300);
+  return carrinho.reduce((acc, item) => acc + item.preco, 0);
+}
+
+async function confirmarPagamento(total) {
+  await delay(300);
+  return `Pagamento de R$${total} confirmado. Flamengo é o melhor!`;
+}
+
+async function realizarCheckout(carrinho) {
+  try {
+    await validarCarrinho(carrinho);
+    const total = await calcularTotal(carrinho);
+    const confirmacao = await confirmarPagamento(total);
+    console.log("Checkout finalizado com sucesso:", confirmacao);
+  } catch (erro) {
+    console.error("Falha ao realizar checkout:", erro.message);
+  }
+}
+
+realizarCheckout([{ item: "Camiseta", preco: 100 }]);
+realizarCheckout([]);
