@@ -20,6 +20,19 @@ saudarComCallback("João", (mensagem) => {
 
 console.log(`Mensagem enviada! em ${time}ms`);
 
+
+// JEITO DO PROFESSOR
+
+function saudarComCallback(nome, callback) {
+    const saudacao = (nome) => `Olá, ${nome}!`;
+    callback(saudacao(nome));
+} 
+
+saudarComCallback("Maria", (mensagem) => {
+    console.log(mensagem);
+}); 
+
+
 //2- 
 
 function callbackHell() {
@@ -35,6 +48,27 @@ function callbackHell() {
 }
 
 callbackHell();
+
+//JEITO DO PROFESSOR
+function buscarUsuario(callback) {
+    setTimeout(() => callback("Usuário encontrado!"), 500);
+};
+
+function buscarPedidos(usuario, callback) {
+    setTimeout(() => callback(["Pedido 1", "Pedido 2"]), 500);
+};
+
+function buscartPagamento(pedidos, callback) {
+    setTimeout(() => callback("Pagamento processado!"), 500);
+};
+
+buscarUsuario((usuario) => {
+  buscarPedidos(usuario, (pedidos) => {
+    buscartPagamento(pedidos, (pagamento) => {
+      console.log(pagamento);
+    });
+  });
+});
 
 //3-
 
@@ -52,7 +86,7 @@ BLOCO 2 - PROMISES
 ================================================================================================
 */ 
 
-//-1 
+//1 e 2-
 
 const promessaSimples = new Promise((resolve) => {
   setTimeout(() => {
@@ -64,6 +98,27 @@ promessaSimples
   .then((res) => console.log("Then:", res))
   .catch((err) => console.error("Catch:", err))
   .finally(() => console.log("Finally: Processo finalizado."));
+
+//JEITO DO PROFESSOR
+
+const minhaPromise = new Promise((resolve) => {
+  setTimeout(() => {
+    resolve("Sucesso!!");
+  }, 1000);
+});
+
+// 2- JEITO DO PROFESSOR
+
+minhaPromise
+  .then((resultado) => {
+    console.log("Deu certo:", resultado);
+  })
+  .catch((erro) => {
+    console.log("Deu errado:", erro);
+  })
+  .finally(() => {
+    console.log("Finalizou, deu certo ou errado.");
+  });
 
 // 3-
 
@@ -85,6 +140,27 @@ verificarNumero(-5)
   .then((res) => console.log("Resolve:", res))
   .catch((err) => console.error("Reject:", err));
 
+
+//JEITO DO PROFESSOR
+
+function verificarNumero(numero) {  
+    return new Promise((resolve, reject) => {
+        if (numero < 0) {
+            reject(`Número ${numero} é negativo.`);
+        } else {
+            resolve(`Número ${numero} é positivo!`);
+        }
+    });
+}
+
+verificarNumero(5)
+    .then((resultado) => console.log(resultado))
+    .catch((erro) => console.error(erro));
+    
+verificarNumero(-15)
+    .then((resultado) => console.log(resultado))
+    .catch((erro) => console.error(erro));
+
 /*
 ================================================================================================
 BLOCO 3 - ASYNC/AWAIT
@@ -103,6 +179,20 @@ async function testarVerificacao(numero) {
 
 testarVerificacao(15);
 testarVerificacao(-8);
+
+//JEITO DO PROFESSOR
+
+async function testarNumero (numero) {
+    try {
+        const msg = await verificarNumero(numero);
+        console.log(msg);
+    } catch (erro) {
+        console.error(erro);
+    }
+}
+
+testarNumero(-3);
+testarNumero(5);
 
 //2-
 async function buscarDadosSimulados() {
