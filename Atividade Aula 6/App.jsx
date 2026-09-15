@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, ScrollView } from 'react-native';
 
 // ==========================================
 // BLOCO 1 - Props Básico
@@ -58,15 +58,15 @@ const PainelAluno = ({ aprovado, novo }) => {
 // ==========================================
 // BLOCO 4 - Projeto: Cartão de Perfil
 // ==========================================
-// 1. Crie o componente CartaoPerfil (props) recebendo nome, cargo e foto (uma URL fixa) via props.
+// 1. Crie o componente CartaoPerfil (props) recebendo nome, cargo e departamento via props (Foto removida).
 // 3. Adicione ao CartaoPerfil uma prop opcional destaque (booleano) que, se true, muda visualmente o cartão.
-const CartaoPerfil = ({ nome, cargo, foto, destaque }) => {
+const CartaoPerfil = ({ nome, cargo, departamento, destaque }) => {
   return (
     // Se "destaque" for true, adicionamos o estilo "cartaoDestaque"
     <View style={[styles.cartao, destaque ? styles.cartaoDestaque : null]}>
-      <Image source={{ uri: foto }} style={styles.foto} />
       <Text style={styles.nome}>{nome}</Text>
       <Text style={styles.cargo}>{cargo}</Text>
+      <Text style={styles.departamento}>Setor: {departamento}</Text>
     </View>
   );
 };
@@ -106,18 +106,18 @@ export default function App() {
       <CartaoPerfil 
         nome="Maria Silva" 
         cargo="Desenvolvedora Sênior" 
-        foto="https://via.placeholder.com/100/92c952" 
+        departamento="Tecnologia (TI)"
         destaque={true} 
       />
       <CartaoPerfil 
         nome="João Souza" 
         cargo="UX Designer" 
-        foto="https://via.placeholder.com/100/771796" 
+        departamento="Produto / Design"
       />
       <CartaoPerfil 
         nome="Lucas Lima" 
         cargo="Gerente de Projetos" 
-        foto="https://via.placeholder.com/100/24f355" 
+        departamento="Operações"
       />
       
       {/* Espaço extra no final da rolagem */}
@@ -127,7 +127,7 @@ export default function App() {
 }
 
 // ==========================================
-// ESTILOS (StyleSheet)
+// ESTILOS (StyleSheet) (usei Ia pra ajudar a criar um estilo mais bonito)
 // ==========================================
 const styles = StyleSheet.create({
   container: {
@@ -201,30 +201,34 @@ const styles = StyleSheet.create({
     marginBottom: 15,
     borderRadius: 10,
     alignItems: 'center',
-    // Sombras
     elevation: 3, 
     shadowColor: '#000', 
     shadowOpacity: 0.1,
     shadowRadius: 5,
   },
   cartaoDestaque: {
-    backgroundColor: '#fff3cd', // Fundo amarelado
+    backgroundColor: '#fff3cd', 
     borderColor: '#ffeeba',
     borderWidth: 2,
-  },
-  foto: {
-    width: 80, 
-    height: 80, 
-    borderRadius: 40, 
-    marginBottom: 10 
   },
   nome: {
     fontSize: 18, 
     fontWeight: 'bold',
-    color: '#333'
+    color: '#333',
+    marginBottom: 5,
   },
   cargo: {
     fontSize: 14, 
-    color: '#666'
+    color: '#666',
+    marginBottom: 5,
+  },
+  departamento: {
+    fontSize: 12,
+    color: '#0056b3',
+    fontWeight: 'bold',
+    backgroundColor: '#e6f2ff',
+    paddingHorizontal: 8,
+    paddingVertical: 4,
+    borderRadius: 5,
   }
 });
